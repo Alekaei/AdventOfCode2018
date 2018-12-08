@@ -7,7 +7,7 @@ time = 0
 workers = [None, None, None, None, None]
 
 
-while len(inputs) > 0 or workers != [None, None, None, None, None]:
+while len(inputs) > 0 or any(workers):
 	for i in range(len(workers)):
 		if workers[i]:
 			workers[i][1] -= 1
@@ -15,14 +15,11 @@ while len(inputs) > 0 or workers != [None, None, None, None, None]:
 				done += workers[i][0]
 				workers[i] = None 
 				inputs = [x for x in inputs if x[0] not in done]
-		
-		if not workers[i]:	
+		else:	
 			available = [i for i in inputs if i[0] not in [x[1] for x in inputs] and i[0] not in [x[0] for x in workers if x]]
 			available.sort(key=lambda x: (x[0], x[1]))
 			if len(available) > 0:
-				workers[i] = [available[0][0], 60 + 1 + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.index(available[0][0])]
+				workers[i] = [available[0][0], 61 + (ord(available[0][0]) - ord('A'))]
 
 	time += 1
-time += 60 # Last step takes time too
-
 print(time)
