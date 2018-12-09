@@ -55,7 +55,6 @@ for i in range(1, lastMarble + 1):
 		players[currPlayer] += i + removeMarble.data
 		currMarble = removeMarble.next
 		removeMarble.remove()
-		
 	else:
 		insertAfter = currMarble.next
 		new_marble = Node(i, insertAfter, insertAfter.next)
